@@ -3,6 +3,7 @@ from functools import reduce
 from operator import add
 from common.r3 import R3
 from common.tk_drawer import TkDrawer
+import math
 
 
 class Segment:
@@ -82,6 +83,14 @@ class Edge:
 
     def if_fully_invisible(self):
         return len(self.gaps) == 0
+
+    def proj_x(self):
+        return (self.beg.x + self.fin.x) / 2
+
+    def proj_len(self):
+        dx = self.fin.x - self.beg.x
+        dy = self.fin.y - self.beg.y
+        return math.sqrt(dx * dx + dy * dy)
 
 
 class Facet:
@@ -168,5 +177,12 @@ class Polyedr:
         for e in self.edges:
             for f in self.facets:
                 e.shadow(f)
-            for s in e.gaps:
-                tk.draw_line(e.r3(s.beg), e.r3(s.fin))
+            # for s in e.gaps:
+            #     tk.draw_line(e.r3(s.beg), e.r3(s.fin))
+
+        total_length = 0.0
+        for e in self.edges:
+            if e.if_fully_invisible():
+                center_x = e.proj_x()
+                if abs(center_x - 2.0) < 1.0:
+                    total_length += e.proj_len()
