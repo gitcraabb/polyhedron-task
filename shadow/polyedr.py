@@ -80,6 +80,9 @@ class Edge:
         x = - f0 / (f1 - f0)
         return Segment(Edge.SBEG, x) if f0 < 0.0 else Segment(x, Edge.SFIN)
 
+    def if_fully_invisible(self):
+        return len(self.gaps) == 0
+
 
 class Facet:
     """ Грань полиэдра """
