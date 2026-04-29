@@ -177,8 +177,6 @@ class Polyedr:
         for e in self.edges:
             for f in self.facets:
                 e.shadow(f)
-            # for s in e.gaps:
-            #     tk.draw_line(e.r3(s.beg), e.r3(s.fin))
 
         total_length = 0.0
         for e in self.edges:
@@ -187,7 +185,7 @@ class Polyedr:
                 if abs(center_x - 2.0) < 1.0:
                     total_length += e.proj_len()
 
-        print(f"Сумма длин проекций невидимых рёбер ... {total_length:.10f}.")
+        print(f"Сумма длин проекций невидимых рёбер ... {total_length:.3f}.")
 
         for e in self.edges:
             for s in e.gaps:
