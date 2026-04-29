@@ -186,3 +186,9 @@ class Polyedr:
                 center_x = e.proj_x()
                 if abs(center_x - 2.0) < 1.0:
                     total_length += e.proj_len()
+
+        print(f"Сумма длин проекций невидимых рёбер ... {total_length:.10f}.")
+
+        for e in self.edges:
+            for s in e.gaps:
+                tk.draw_line(e.r3(s.beg), e.r3(s.fin))
